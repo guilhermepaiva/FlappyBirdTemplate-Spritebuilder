@@ -9,6 +9,7 @@
     // your code here
     character = (Character*)[CCBReader load:@"Character"];
     [physicsNode addChild:character];
+    timeSinceObstacle = 0.0f;
     [self addObstacle];
 }
 
@@ -18,8 +19,9 @@
 }
 
 // put new methods here
--(void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
-    //this method will be called every time the player touches the screen
+
+- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
+    // this will get called every time the player touches the screen
     [character flap];
 }
 

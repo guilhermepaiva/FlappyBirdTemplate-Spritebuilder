@@ -182,6 +182,21 @@
         [character.physicsBody applyAngularImpulse:-40000.f*delta];
     }
     
+    physicsNode.position = ccp(physicsNode.position.x - (character.physicsBody.velocity.x * delta), physicsNode.position.y);
+    
+    // loop the ground
+    for (CCNode *ground in _grounds) {
+        // get the world position of the ground
+        CGPoint groundWorldPosition = [physicsNode convertToWorldSpace:ground.position];
+        // get the screen position of the ground
+        CGPoint groundScreenPosition = [self convertToNodeSpace:groundWorldPosition];
+        
+        // if the left corner is one complete width off the screen, move it to the right
+        if (groundScreenPosition.x <= (-1 * ground.contentSize.width)) {
+            ground.position = ccp(ground.position.x + 2 * ground.contentSize.width, ground.position.y);
+        }
+    }
+    
     _parallaxBackground.position = ccp(_parallaxBackground.position.x - (character.physicsBody.velocity.x * delta), _parallaxBackground.position.y);
     
     // loop the bushes
